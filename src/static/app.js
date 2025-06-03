@@ -28,9 +28,20 @@ document.addEventListener("DOMContentLoaded", () => {
           <div class="participants">
             <h5>Participants</h5>
             <ul>
-              ${details.participants.length > 0 
-                ? details.participants.map(email => `<li>${email}</li>`).join('')
-                : '<li class="no-participants">No participants yet</li>'}
+              ${
+                details.participants.length > 0 
+                  ? details.participants.map(email => {
+                      const li = document.createElement("li");
+                      li.textContent = email;
+                      return li.outerHTML;
+                    }).join('')
+                  : (() => {
+                      const li = document.createElement("li");
+                      li.className = "no-participants";
+                      li.textContent = "No participants yet";
+                      return li.outerHTML;
+                    })()
+              }
             </ul>
           </div>
         `;
